@@ -20,6 +20,53 @@ Horme defines global variables which behave similarly to built-in steps, such as
 - [Force stops and removes Docker containers by name or regex pattern](./vars/removeAllContainers.groovy)
 
 
+Install Horme on Jenkins
+------------------------
+
+There are several places where Horme can be loaded, depending on the use-case. The most common approache is through
+**Manage Jenkins** » **Configure System** » **Global Pipeline Libraries**:
+
+![Error loading install-horme.png](./install-horme.png)
+
+Since the library will be globally usable, any Pipeline in the system can utilize functionality implemented in Horme
+
+### Using Horme
+
+If Horme was marked _Load implicitly_, pipelines will be allowed to to immediately use the Horme classes or global 
+variables. For example, to
+[force stops and removes some Nginx container by name or regex pattern](./vars/removeAllContainers.groovy) and then
+[remove its Nginx image](./vars/removeAllImages.groovy):
+
+```
+pipeline {
+    ...
+    
+    stages {
+        ...
+    
+        stage {
+            ...
+            
+            steps {
+                ...
+            
+                removeAllContainers("my-nginx-container")
+                removeAllImages("nginx:latest")
+                
+                ...
+            }
+            
+            ...
+        }
+        
+        ...
+    }
+    
+    ...
+}
+```
+
+
 License
 -------
 
