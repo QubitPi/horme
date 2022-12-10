@@ -7,5 +7,5 @@
  * @return not used
  */
 def call(String imageNameRegex) {
-    this.sh("docker images | grep ${imageNameRegex} | awk '{ print \$3; }' | xargs -r docker rmi")
+    this.sh("docker images | grep ${imageNameRegex} | awk '{ print \$3; }' | xargs -r docker rmi --force")
 }
